@@ -1,6 +1,5 @@
 {
   "name": "forieandcef",
-  "projectTitle": "兼容 ie 和 cef 的项目",
   "version": "1.0.0",
   "description": "A webpack project which is compatible with IE and CEF.",
   "main": "index.js",
