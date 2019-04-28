@@ -1,14 +1,14 @@
 
-  module.exports = ({ env }) => {
-    const IS_PRO_MODE = env === 'production';
-        
+  module.exports = ({ isProd }) => {
     return {
-      parser: 'sugarss',
-      syntax: 'postcss-scss',
       stringifier: 'midas',
-      map: true,
-      plugins: [
-        IS_PRO_MODE ? require('autoprefixer') : false
-      ]
+      map: isProd ? false : 'inline',
+      plugins: {
+        'postcss-preset-env': isProd? {} : false,
+        'postcss-assets': isProd? {} : false,
+        'postcss-sprites': isProd? {} : false,
+        'stylelint': isProd? {} : false,
+        'cssnano': isProd? {} : false,
+      }
     }
   }

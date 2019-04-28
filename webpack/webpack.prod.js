@@ -38,7 +38,7 @@ module.exports = merge(common(MetaData), {
 			cleanOnceBeforeBuildPatterns: ['../dist/*'],
 		}),
 		new MiniCssExtractPlugin({
-			filename: devMode ? '[name].css' : '[name].[hash].css'
+			filename: '[name].[hash].css'
 		  })
 	]
 });

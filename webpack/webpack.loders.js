@@ -33,7 +33,8 @@ modules.exports = function (MetaData) {
                     options: {
                         sourceMap: true,
                         ctx: {
-                            env: mode
+                            env: mode,
+                            isProd
                         }
                     }
                 },

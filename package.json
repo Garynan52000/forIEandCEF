@@ -8,7 +8,6 @@
     "start-prod": "webpack-dev-server --config webpack/webpack.prod.js --open",
     "build": "webpack --config webpack/webpack.prod.js",
     "build-dev": "webpack --config webpack/webpack.dev.js",
-    "bundle": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
