@@ -9,21 +9,26 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin'); //
 /* 插件 end */
 
 /* 常量 start */
-const TEMPLATE_URL = '../public/index.html'; // html template url
+const TEMPLATES = { // html 模板
+	index: { // 首页
+		name: 'index.html', 
+		url: 'public/index.html'
+	} 
+} 
 /* 常量 end */
 
 module.exports = function(MetaData){
-  const {mode, outputPath, publicPath} = MetaData;
+  const {mode, isProd, outputPath, publicPath} = MetaData;
   
   return {
     mode,
-    context: __dirname,
+    context: path.resolve(__dirname, '../'),
     entry: {
       index: './src/index.ts',
     },
     output: {
       path: path.resolve(__dirname, outputPath),
-      filename: '[name].bundle.js',
+      filename: 'js/[name].[hash].bundle.js',
       publicPath
     },
     module: { // loders 规则
@@ -31,8 +36,8 @@ module.exports = function(MetaData){
     },
     resolve: { // 资源引入配置
       alias: { // 路径别名
-        "@": path.resolve(__dirname, 'src'),
-        Assets: path.resolve(__dirname, 'src/assets')
+        "@": path.resolve(__dirname, '../src'),
+        Assets: path.resolve(__dirname, '../src/assets')
       },
       extensions: [ '.tsx', '.ts', '.js', 'json', '*' ], // 引入资源时，依次尝试的文件后缀 （使进入资源时，路径可不带文件后缀）
       mainFiles: ['index'],
@@ -40,8 +45,9 @@ module.exports = function(MetaData){
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: TEMPLATE_URL,
-        filename: 'index.html'
+        template: TEMPLATES.index.url,
+        filename: TEMPLATES.index.name,
+        hash: isProd,
       }),
       new ForkTsCheckerWebpackPlugin({
         tslint: MetaData.isTsLint, 

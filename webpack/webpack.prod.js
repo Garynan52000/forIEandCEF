@@ -1,4 +1,5 @@
 /* 依赖 start */
+const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const packageJSON = require('../package.json');
@@ -20,14 +21,39 @@ const VERSION = packageJSON.version; // 当前版本
 const MetaData = {
 	mode: 'production',
 	isProd: true,
-	outputPath: `../dist/${APP_NAME}/${VERSION}`,
-	publicPath: `/${APP_NAME}/${VERSION}`,
+	outputPath: `../dist/${APP_NAME}/${VERSION}/`,
+	publicPath: `/${APP_NAME}/${VERSION}/`,
 	isTsLint: true
 }
 /* 配置数据源 end */
 
+/**
+ * 获取当前编译模块的名字
+ * @param {*} m 模块
+ */
+function recursiveIssuer(m) {
+	if (m.issuer) {
+	  return recursiveIssuer(m.issuer);
+	} else if (m.name) {
+	  return m.name;
+	} else {
+	  return false;
+	}
+}
+
 module.exports = merge(common(MetaData), {
 	optimization: { // webpack 编译优化配置
+		splitChunks: {
+			cacheGroups: {
+				indexStyles: {
+					name: 'index',
+					test: (m, c, entry = 'index') =>
+						m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+					chunks: 'all',
+					enforce: true,
+				},
+			},
+		},
 		minimizer: [
 		  new TerserJSPlugin({}), 
 		  new OptimizeCSSAssetsPlugin({})
@@ -35,10 +61,12 @@ module.exports = merge(common(MetaData), {
 	},
 	plugins: [
 		new CleanWebpackPlugin({
-			cleanOnceBeforeBuildPatterns: ['../dist/*'],
+			verbose: true,
+			cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, '../dist/*')],
 		}),
-		new MiniCssExtractPlugin({
-			filename: '[name].[hash].css'
-		  })
+		new MiniCssExtractPlugin({ // 为每个包含CSS的JS文件创建一个CSS文件,且最小化 css
+			filename: 'css/[name].[hash].css',
+			chunkFilename: 'css/[id].[hash].css'
+		})
 	]
 });

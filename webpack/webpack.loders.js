@@ -1,24 +1,28 @@
 /* 依赖 start */
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // css 最小化插件
 /* 依赖 end */
 
 /* 常量 start */
-const DNS_PERFIX = 'http://img.game.dwstatic.com/intra4test'; // 图片 dns url 前缀
+const DNS_HOST = '//img.game.dwstatic.com'; // 图片 dns host
 /* 常量 end */
 
-modules.exports = function (MetaData) {
-    const {mode, isProd, publicPath} = MetaData;
+module.exports = function (MetaData) {
+    const {mode, isProd, outputPath, publicPath} = MetaData;
     
     return [
+        { test: /\.handlebars$/, loader: "handlebars-loader" },
         {
             test: /\.(scss|sass|css)$/,
             use: [
                 {
-                    loader: isProd ?  MiniCssExtractPlugin.loader : 'style-loader',
-                    options: {
+                    loader: isProd?  MiniCssExtractPlugin.loader : 'style-loader',
+                    options: isProd? {
                         publicPath: publicPath,
-                        sourceMap: true
-                    }
+                        sourceMap: true,
+                        hmr: !isProd, // 只在开发环境下启用 热模块替换
+                        reloadAll: true, // 如果 hmr 无效, 强制重载
+                    } : { sourceMap: true },
                 },
                 {
                     loader: 'css-loader',
@@ -28,6 +32,13 @@ modules.exports = function (MetaData) {
                         importLoaders: 1
                     }
                 },
+                // {
+                    // loader: 'typings-for-css-modules-loader',
+                    // options: {
+                    //   modules: true,
+                    //   namedExport: true
+                    // }
+                // },
                 {
                     loader: 'postcss-loader',
                     options: {
@@ -44,29 +55,7 @@ modules.exports = function (MetaData) {
                         sourceMap: true,
                         data: "$env: " + mode + ";"
                     }
-                }
-            ]
-        },
-        {
-            test: /\.(png|svg|jpg|gif)$/,
-            use: [
-                {
-                    loader: 'file-loader',
-                    options: {
-                        publicPath: isProd ? DNS_PERFIX + publicPath : publicPath
-                    }
-                }
-            ]
-        },
-        {
-            test: /\.(woff|woff2|eot|ttf|otf)$/,
-            use: [
-                {
-                    loader: 'file-loader',
-                    options: {
-                        publicPath: publicPath
-                    }
-                }
+                },
             ]
         },
         {
@@ -81,13 +70,43 @@ modules.exports = function (MetaData) {
                 },
             ],
             exclude: /node_modules/,
-            sideEffects: [
-                "*.css",
-                "*.scss",
-                "*.sass",
-                "*.js",
+        },
+        {
+            test: /\.(png|svg|jpg|gif)$/,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: outputPath + 'images/',
+                        publicPath: isProd ? DNS_HOST + publicPath  + 'images/' : publicPath  + 'images/',
+                    }
+                }
+            ]
+        },
+        {
+            test: /\.(png|jpg|gif)$/i,
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: 8192
+                }
+              }
+            ]
+        },
+        {
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: outputPath + 'fonts/',
+                        publicPath: publicPath  + 'fonts/'
+                    }
+                }
             ]
         }
+
         // {
         //   test: /\.(csv|tsv)$/,
         //   use: [
@@ -100,16 +119,5 @@ modules.exports = function (MetaData) {
         //     'xml-loader'
         //   ]
         // },
-        // {
-        //   test: /\.(png|jpg|gif)$/i,
-        //   use: [
-        //     {
-        //       loader: 'url-loader',
-        //       options: {
-        //         limit: 8192
-        //       }
-        //     }
-        //   ]
-        // }
     ]
 }

@@ -1,4 +1,5 @@
 /* 依赖 start */
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 /* 依赖 end */
@@ -8,7 +9,7 @@ const MetaData = {
 	devPort: 3000,
 	mode: 'development',
 	isProd: false,
-	outputPath: `../dist`,
+	outputPath: `../dist/`,
 	publicPath: `/`,
 	isTsLint: true
 }
@@ -21,7 +22,7 @@ module.exports = merge(common(MetaData), {
 		contentBase: MetaData.outputPath,
 		publicPath: MetaData.publicPath
   	},
-	optimization: {
-		usedExports: true
-	}
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	]
 });
