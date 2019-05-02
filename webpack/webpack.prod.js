@@ -65,8 +65,8 @@ module.exports = merge(common(MetaData), {
 			cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, '../dist/*')],
 		}),
 		new MiniCssExtractPlugin({ // 为每个包含CSS的JS文件创建一个CSS文件,且最小化 css
-			filename: 'css/[name].[hash].css',
-			chunkFilename: 'css/[id].[hash].css'
+			filename: 'css/[name].css',
+			chunkFilename: 'css/[id].css'
 		})
 	]
 });

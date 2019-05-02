@@ -21,7 +21,7 @@ module.exports = function (MetaData) {
                         publicPath: publicPath,
                         sourceMap: true,
                         hmr: !isProd, // 只在开发环境下启用 热模块替换
-                        reloadAll: true, // 如果 hmr 无效, 强制重载
+                        reloadAll: !isProd, // 如果 hmr 无效, 强制重载
                     } : { sourceMap: true },
                 },
                 {
@@ -43,9 +43,11 @@ module.exports = function (MetaData) {
                     loader: 'postcss-loader',
                     options: {
                         sourceMap: true,
-                        ctx: {
-                            env: mode,
-                            isProd
+                        config: {
+                            ctx: {
+                                env: mode,
+                                isProd,
+                            }
                         }
                     }
                 },

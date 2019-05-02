@@ -28,7 +28,7 @@ module.exports = function(MetaData){
     },
     output: {
       path: path.resolve(__dirname, outputPath),
-      filename: 'js/[name].[hash].bundle.js',
+      filename: 'js/[name].bundle.js',
       publicPath
     },
     module: { // loders 规则
