@@ -1,5 +1,6 @@
 import { Component } from "./assets/classes/component";
-import styles from './index.scss';
+import * as styles  from './index.scss';
+
 
 class App extends Component {
 
@@ -10,7 +11,6 @@ class App extends Component {
         styles,
     }
     public model = {
-        
     }
 
     constructor() {
