@@ -1,20 +1,41 @@
 import { Component } from "./assets/classes/component";
 import * as styles  from './index.scss';
 
+declare const window: any;
 
-class App extends Component {
+class AppStatus {
+    title = '31分钟1';
+    config = {
+        gift: {
+            style: {
+                width: '276px',
+                height: '238px',
+                containerBgImg: 'Assets/imgs/gift-containerBg.png',
+                btnBgImg: 'Assets/imgs/gift-btnBg.png',
+                btnBgImgHover: 'Assets/imgs/gift-btnBg-hover.png',
+                btnBgImgPress: 'Assets/imgs/gift-btnBg-press.png',
+            },
+            btnText: '',
+            bottomTips: '礼包限量 5 万份，没人限购 1 份'
+        }
+    }
+}
+const status = new AppStatus();
 
-    public nodeSelector = '#app';
-    public template = require('./index.handlebars');
-    public status = {
-        title: '30分钟',
-        styles,
-    }
-    public model = {
-    }
+class App extends Component<AppStatus> {
+
+    private _windowVar = 'VIP_GIFT_CONFIG';
 
     constructor() {
-        super();
+        super({
+            nodeSelector: '#app',
+            template: require('./index.handlebars'),
+            cssModel: styles,
+            status
+        });
+    }
+
+    public componentWillInit() {
         this.createRoot();
     }
     
@@ -26,6 +47,13 @@ class App extends Component {
         const oBody = document.querySelector('body');
         oDiv.setAttribute('id', 'app');
         oBody.appendChild(oDiv);        
+    }
+
+    /**
+     * 设置 window 下的环境变量
+     */
+    private _setWindowConfiguration() {
+        window[this._windowVar] = Object.assign(this.status.config, window[this._windowVar] || {}); 
     }
 }
 
