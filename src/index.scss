@@ -1,5 +1,6 @@
 .title {
     display: flex;
     flex: 1;
-    color: skyblue;
+    color: $color-danger;
+    text-shadow: 0 0 10px #000;
 }     

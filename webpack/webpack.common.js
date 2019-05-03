@@ -10,9 +10,10 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin'); //
 
 /* 常量 start */
 const TEMPLATES = { // html 模板
-	index: { // 首页
-		name: 'index.html', 
-		url: 'public/index.html'
+  index: { // 首页
+    name: 'index',
+		template: 'public/index.html',
+		filename: 'index.html',
 	} 
 } 
 /* 常量 end */
@@ -24,7 +25,7 @@ module.exports = function(MetaData){
     mode,
     context: path.resolve(__dirname, '../'),
     entry: {
-      index: './src/index.ts',
+      [TEMPLATES.index.name]: './src/index.ts',
     },
     output: {
       path: path.resolve(__dirname, outputPath),
@@ -45,8 +46,8 @@ module.exports = function(MetaData){
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: TEMPLATES.index.url,
-        filename: TEMPLATES.index.name,
+        template: TEMPLATES.index.template,
+        filename: TEMPLATES.index.filename,
         hash: isProd,
       }),
       new ForkTsCheckerWebpackPlugin({

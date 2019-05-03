@@ -1,6 +1,5 @@
 /* 依赖 start */
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin') // css 最小化插件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css 最小化插件
 /* 依赖 end */
 
 /* 常量 start */
@@ -32,13 +31,6 @@ module.exports = function (MetaData) {
                         importLoaders: 1
                     }
                 },
-                // {
-                    // loader: 'typings-for-css-modules-loader',
-                    // options: {
-                    //   modules: true,
-                    //   namedExport: true
-                    // }
-                // },
                 {
                     loader: 'postcss-loader',
                     options: {
@@ -58,6 +50,12 @@ module.exports = function (MetaData) {
                         data: "$env: " + mode + ";"
                     }
                 },
+                {
+                    loader: 'sass-resources-loader',
+                    options: {
+                      resources: ['public/sass/common.scss']
+                    },
+                }
             ]
         },
         {
