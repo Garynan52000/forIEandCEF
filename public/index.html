@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh">
+    <% var title = htmlWebpackPlugin.options.title; %>
+    <% var model = htmlWebpackPlugin.options.model; %>
     <head>
         <meta charset="UTF-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=EDGE"/>
+        <title><%= title %></title>
         <!--[if lt IE 9]>
-            <script src="/html5shiv.js"></script>
+            <%= model.es5Shim %>
+            <%= model.es5Sham %>
+            <%= model.h5shiv %>
         <![endif]-->
     </head>
     

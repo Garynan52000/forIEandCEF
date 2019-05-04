@@ -1,0 +1,10 @@
+.container {
+    overflow: hidden;
+    
+    .inner {
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+}     

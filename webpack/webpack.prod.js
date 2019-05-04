@@ -23,7 +23,8 @@ const MetaData = {
 	isProd: true,
 	outputPath: `../dist/${APP_NAME}/${VERSION}/`,
 	publicPath: `/${APP_NAME}/${VERSION}/`,
-	isTsLint: true
+	isTsLint: true,
+	isCDN: false
 }
 /* 配置数据源 end */
 

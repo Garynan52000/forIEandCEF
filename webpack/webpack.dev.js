@@ -11,7 +11,8 @@ const MetaData = {
 	isProd: false,
 	outputPath: `../dist/`,
 	publicPath: `/`,
-	isTsLint: true
+	isTsLint: true,
+	isCDN: false
 }
 /* 配置数据源 end */
 

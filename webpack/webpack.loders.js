@@ -2,12 +2,19 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css 最小化插件
 /* 依赖 end */
 
+
 /* 常量 start */
 const DNS_HOST = '//img.game.dwstatic.com'; // 图片 dns host
 /* 常量 end */
 
+/* 公共变量 start */
+let babelLoader = {
+    loader: "babel-loader",
+}
+/* 公共变量 end */
+
 module.exports = function (MetaData) {
-    const {mode, isProd, outputPath, publicPath} = MetaData;
+    const {mode, isProd, outputPath, publicPath, isCDN} = MetaData;
     
     return [
         { test: /\.handlebars$/, loader: "handlebars-loader" },
@@ -17,7 +24,6 @@ module.exports = function (MetaData) {
                 {
                     loader: isProd?  MiniCssExtractPlugin.loader : 'style-loader',
                     options: isProd? {
-                        publicPath: publicPath,
                         sourceMap: true,
                         hmr: !isProd, // 只在开发环境下启用 热模块替换
                         reloadAll: !isProd, // 如果 hmr 无效, 强制重载
@@ -59,8 +65,18 @@ module.exports = function (MetaData) {
             ]
         },
         {
+            test: /\.js$/,
+            use: [
+                {loader: 'es3ify-loader'},
+                babelLoader
+            ],
+            exclude: /node_modules/
+        },
+        {
             test: /\.(ts|tsx)$/,
             use: [
+                {loader: 'es3ify-loader'},
+                babelLoader,
                 {
                     loader: 'ts-loader',
                     options: {
@@ -71,27 +87,32 @@ module.exports = function (MetaData) {
             ],
             exclude: /node_modules/,
         },
+        // { 
+        //     test: /\.(png|jpe?g|bmp|gif)$/,
+        //     use: [
+        //         {
+        //             loader:'url-loader',
+        //             options: {
+        //                 fallback: 'file-loader',
+        //                 limit: 8192,//限制打包图片的大小：如果大于或等于8192Byte，则按照相应的文件名和路径打包图片；如果小于8192Byte，则将图片转成base64格式的字符串。
+        //                 //images:图片打包的文件夹；
+        //                 //[name].[ext]：设定图片按照本来的文件名和扩展名打包，不用进行额外编码
+        //                 //[hash:8]：一个项目中如果两个文件夹中的图片重名，打包图片就会被覆盖，加上hash值的前八位作为图片名，可以避免重名。
+        //             }
+        //         }
+        //     ]
+        // },
         {
-            test: /\.(png|svg|jpg|gif)$/,
+            test: /\.(png|jpe?g|gif|svg)$/,
             use: [
                 {
                     loader: 'file-loader',
                     options: {
-                        outputPath: outputPath + 'images/',
-                        publicPath: isProd ? DNS_HOST + publicPath  + 'images/' : publicPath  + 'images/',
+                        outputPath: 'images/',
+                        publicPath: isCDN ? DNS_HOST + publicPath  + 'images/' : publicPath  + 'images/',
+                        name: '[name]-[hash:8].[ext]',
                     }
                 }
-            ]
-        },
-        {
-            test: /\.(png|jpg|gif)$/i,
-            use: [
-              {
-                loader: 'url-loader',
-                options: {
-                  limit: 8192
-                }
-              }
             ]
         },
         {

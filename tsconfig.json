@@ -3,12 +3,17 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "es6",
-        "target": "es5",
-        "allowJs": true
+        "module": "CommonJS",
+        "target": "ES5",
+        "allowJs": true,
+        "lib": [
+            "dom", 
+            "es5", 
+            "scripthost"
+        ]
 	},
 	"include": [
-		"**/*", ".postcssrc.js"
+		"src/**/*", "typings/*"
 	],
 	"exclude": [
 		"dist"

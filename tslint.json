@@ -1,14 +1,23 @@
 {
     "extends": "tslint:recommended",
     "rules": {
+        "curly": false,
         "max-line-length": {
             "options": [120]
         },
+        "max-classes-per-file": false,
         "new-parens": true,
         "no-arg": true,
         "no-bitwise": true,
         "no-conditional-assignment": true,
         "no-consecutive-blank-lines": false,
+        "no-empty": false,
+        "no-trailing-whitespace": false,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "quotemark": [true, "single", "jsx-double"],
+        "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
     },
     "jsRules": {
         "max-line-length": {
