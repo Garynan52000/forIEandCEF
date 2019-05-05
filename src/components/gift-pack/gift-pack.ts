@@ -23,7 +23,7 @@ export class GiftPackStatus {
         position: absolute;
         top: 100px;
         left: 0;
-        right: 0;
+        width: 100%;
         height: 178px;
     `;
     public style = {
