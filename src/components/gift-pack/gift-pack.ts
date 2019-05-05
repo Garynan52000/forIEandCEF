@@ -20,7 +20,10 @@ export class GiftPackStatus {
         background-repeat: no-repeat;
     `;
     public innerStyle = `
+        position: absolute;
         top: 100px;
+        left: 0;
+        right: 0;
         height: 178px;
     `;
     public style = {
