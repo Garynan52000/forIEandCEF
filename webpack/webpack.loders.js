@@ -5,17 +5,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css 最小�
 
 /* 常量 start */
 const DNS_HOST = '//img.game.dwstatic.com'; // 图片 dns host
-/* 常量 end */
-
-/* 公共变量 start */
-let babelLoaders = [
-    // {
-    //     loader: "es3ify-loader",
-    // },
+const JS_LOADERS = [ // js 的 loaders
     {
         loader: "babel-loader",
     },
 ];
+/* 常量 end */
+
+/* 公共变量 start */
 /* 公共变量 end */
 
 module.exports = function (MetaData) {
@@ -72,14 +69,14 @@ module.exports = function (MetaData) {
         {
             test: /\.js$/,
             use: [
-                ...babelLoaders
+                ...JS_LOADERS
             ],
             exclude: /node_modules/
         },
         {
             test: /\.(ts|tsx)$/,
             use: [
-                ...babelLoaders,
+                ...JS_LOADERS,
                 {
                     loader: 'ts-loader',
                     options: {

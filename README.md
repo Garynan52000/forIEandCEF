@@ -22,3 +22,5 @@
     ]
 }
 ```
+
+http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/

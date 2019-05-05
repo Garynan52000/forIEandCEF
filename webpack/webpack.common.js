@@ -21,12 +21,16 @@ const PUBLIC_JS_TO = 'assets/js/' // 公共 js 编译路径
 /* 常量 end */
 
 module.exports = function(MetaData){
-  const {mode, isProd, outputPath, publicPath} = MetaData; // 配置元数据
+  const {mode, isProd, outputPath, publicPath, isSimming} = MetaData; // 配置元数据
   let publicJsPath = isProd? `../${PUBLIC_JS_TO}` : PUBLIC_JS_TO; // 公共 js 编译路径计算
   let commonHtmlModel = { // 公共 html 模板数据模型
-    es5Shim: `<script src="${publicPath}${publicJsPath}es5-shim.min.js"></script>`,
-    es5Sham: `<script src="${publicPath}${publicJsPath}es5-sham.min.js"></script>`,
-    h5shiv: `<script src="${publicPath}${publicJsPath}html5shiv-printshiv.min.js"></script>`,
+    polyfill: isSimming?  `
+      <!--[if lt IE 9]>
+        <script src="${publicPath}${publicJsPath}es5-shim.min.js"></script>
+        <script src="${publicPath}${publicJsPath}es5-sham.min.js"></script>
+        <script src="${publicPath}${publicJsPath}html5shiv-printshiv.min.js"></script>
+      <![endif]-->
+    ` : ''
   }
   let indexHtmlModel = Object.assign(commonHtmlModel, {}); // 首页 html 数据模型
   

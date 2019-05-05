@@ -24,7 +24,8 @@ const MetaData = {
 	outputPath: `../dist/${APP_NAME}/${VERSION}/`,
 	publicPath: `/${APP_NAME}/${VERSION}/`,
 	isTsLint: true,
-	isCDN: false
+	isCDN: false,
+	isSimming: false
 }
 /* 配置数据源 end */
 

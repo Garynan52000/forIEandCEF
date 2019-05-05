@@ -1,8 +1,10 @@
+import 'core-js/modules/es6.object.seal';
 import { Component } from './assets/classes/component';
 import { GiftPack } from './components/gift-pack/gift-pack';
 import * as cssModel from './index.scss';
 import * as template from './index.handlebars';
-import '@babel/polyfill';
+
+declare var window: any;
 
 class App extends Component {
 
@@ -11,7 +13,7 @@ class App extends Component {
 
     constructor() {
         super({
-            nodeSelector: '#app',
+            node: document.getElementById('app'),
             template,
             cssModel,
             status: {}
@@ -19,14 +21,13 @@ class App extends Component {
     }
     
     public componentDidInit() {
-        this._giftPackComponent = new GiftPack();
+        window.GIFT_PACK_COMPONENT = this._giftPackComponent = new GiftPack();
     }
 }
 
 (() => {
-    
     const oDiv = document.createElement('div');
-    const oBody = document.querySelector('body');
+    const oBody = document.body || document.getElementsByTagName('body')[0];
     let oApp: App;
     oDiv.setAttribute('id', 'app');
     oBody.appendChild(oDiv); 

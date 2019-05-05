@@ -17,7 +17,7 @@ export interface IComponentLifeCycle {
  */
 export interface IComponent<Status = object> extends IComponentLifeCycle {
     /* 宿主选择器 */
-    nodeSelector: string;
+    node: HTMLElement;
     /* cssModel */
     cssModel: object;
     /* 模板 model 数据对象 */
@@ -31,11 +31,10 @@ export interface IComponent<Status = object> extends IComponentLifeCycle {
  */
 export class Component<Status = object> implements IComponent<Status> {
 
-    public nodeSelector: string;
+    public node: HTMLElement;
     public cssModel: object;
     public readonly status: Status;
     public template: (model: Status) => string;
-    public $el: HTMLElement;    
 
     private _isInit: boolean = false;
 
@@ -43,11 +42,10 @@ export class Component<Status = object> implements IComponent<Status> {
      * 组件构造函数
      * @param dataSource 构建组件必须的数据 
      */
-    constructor(dataSource: IComponent<Status>) {
+    constructor(dataSource: IComponent<Status>) {        
         Object.assign(this, dataSource);
         
-        this.$el = document.querySelector(this.nodeSelector);
-        if (this.$el && this.template) {
+        if (this.node && this.template) {
             setTimeout(() => {                
                 if (this.componentWillInit) this.componentWillInit();
                 this.render();
@@ -67,7 +65,7 @@ export class Component<Status = object> implements IComponent<Status> {
         const oModel = Object.assign( this.status, {cssModel: this.cssModel} );
         
         if (!this._isInit && this.componentWillUpdate) this.componentWillUpdate();
-        this.$el.innerHTML = this.template(oModel);         
+        this.node.innerHTML = this.template(oModel);         
         if (!this._isInit && this.componentDidUpdate) this.componentDidUpdate();
         if (fn) fn();
     }

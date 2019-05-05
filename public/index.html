@@ -6,11 +6,7 @@
         <meta charset="UTF-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=EDGE"/>
         <title><%= title %></title>
-        <!--[if lt IE 9]>
-            <%= model.es5Shim %>
-            <%= model.es5Sham %>
-            <%= model.h5shiv %>
-        <![endif]-->
+        <%= model.polyfill %>
     </head>
     
     <body>
