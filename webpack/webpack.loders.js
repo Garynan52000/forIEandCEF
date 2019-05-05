@@ -8,9 +8,14 @@ const DNS_HOST = '//img.game.dwstatic.com'; // 图片 dns host
 /* 常量 end */
 
 /* 公共变量 start */
-let babelLoader = {
-    loader: "babel-loader",
-}
+let babelLoaders = [
+    // {
+    //     loader: "es3ify-loader",
+    // },
+    {
+        loader: "babel-loader",
+    },
+];
 /* 公共变量 end */
 
 module.exports = function (MetaData) {
@@ -67,16 +72,14 @@ module.exports = function (MetaData) {
         {
             test: /\.js$/,
             use: [
-                {loader: 'es3ify-loader'},
-                babelLoader
+                ...babelLoaders
             ],
             exclude: /node_modules/
         },
         {
             test: /\.(ts|tsx)$/,
             use: [
-                {loader: 'es3ify-loader'},
-                babelLoader,
+                ...babelLoaders,
                 {
                     loader: 'ts-loader',
                     options: {

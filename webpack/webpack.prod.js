@@ -56,7 +56,11 @@ module.exports = merge(common(MetaData), {
 			},
 		},
 		minimizer: [
-		  new TerserJSPlugin({}), 
+		  new TerserJSPlugin({
+				terserOptions: {
+					ie8: true
+				}
+			}), 
 		  new OptimizeCSSAssetsPlugin({})
 		],
 	},

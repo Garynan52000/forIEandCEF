@@ -2,6 +2,7 @@ import { Component } from './assets/classes/component';
 import { GiftPack } from './components/gift-pack/gift-pack';
 import * as cssModel from './index.scss';
 import * as template from './index.handlebars';
+import '@babel/polyfill';
 
 class App extends Component {
 

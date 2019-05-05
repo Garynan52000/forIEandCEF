@@ -9,7 +9,6 @@
         "@babel/preset-typescript"
     ],
     "plugins": [
-        "add-module-exports",
         "@babel/plugin-transform-object-assign"
     ]
 }
