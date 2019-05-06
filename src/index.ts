@@ -7,9 +7,8 @@ import * as template from './index.handlebars';
 declare var window: any;
 
 class App extends Component {
-
+    
     private _giftPackComponent: GiftPack;
-    // private _windowVar = 'VIP_GIFT_CONFIG';
 
     constructor() {
         super({

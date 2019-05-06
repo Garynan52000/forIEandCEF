@@ -23,4 +23,7 @@
 }
 ```
 
-http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/
+handlebars-doc: http://handlebarsjs.com/
+handlebars-doc: http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/
+
+apis-doc: https://doc.yy.com/pages/viewpage.action?pageId=3846605  # 文档中的 “非会员用户体验礼包” 目录

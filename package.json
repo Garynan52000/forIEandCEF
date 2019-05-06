@@ -1,7 +1,7 @@
 {
-  "name": "forieandcef",
+  "name": "vip-gift-pack",
   "version": "1.0.0",
-  "description": "A webpack project which is compatible with IE and CEF.",
+  "description": "会员游戏首付礼包活动插件；A webpack project which is compatible with IE and CEF.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js --open",
