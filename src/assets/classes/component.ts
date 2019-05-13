@@ -61,6 +61,11 @@ export class Component<Status = object> implements IComponent<Status> {
         Object.assign(target || this.status, status);
         if (fn) fn();
     }
+
+    /**
+     * 渲染函数
+     * @param fn 回调
+     */
     public render(fn?: () => void) {
         const oModel = Object.assign( this.status, {cssModel: this.cssModel} );
         

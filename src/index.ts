@@ -1,35 +1,43 @@
 import 'core-js/modules/es6.object.seal';
 import { Component } from './assets/classes/component';
-import { GiftPack } from './components/gift-pack/gift-pack';
-import * as cssModel from './index.scss';
 import * as template from './index.handlebars';
+import * as cssModel from './index.scss';
+import { Child } from './components/child/child';
 
-declare var window: any;
+class AppStatus {
+    public title: string = 'Home';
+}
+const status = new AppStatus();
 
+/**
+ * 入口类
+ */
 class App extends Component {
     
-    private _giftPackComponent: GiftPack;
+    /* 子组件 */
+    private _child: Child;
 
     constructor() {
         super({
             node: document.getElementById('app'),
             template,
             cssModel,
-            status: {}
+            status
         });
     }
     
+    /**
+     * 生命钩子 - 组件加载完成
+     */
     public componentDidInit() {
-        window.GIFT_PACK_COMPONENT = this._giftPackComponent = new GiftPack();
+      this._child = new Child();
     }
+
+    
 }
 
+/* 启动函数 */
 (() => {
-    const oDiv = document.createElement('div');
-    const oBody = document.body || document.getElementsByTagName('body')[0];
-    let oApp: App;
-    oDiv.setAttribute('id', 'app');
-    oBody.appendChild(oDiv); 
-
-    oApp = new App(); 
+    const oApp: App = new App(); 
 })();
+
