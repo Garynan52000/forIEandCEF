@@ -1,13 +1,11 @@
 {
-  "name": "vip-gift-pack",
+  "name": "forIEandCEF",
   "version": "1.0.0",
-  "description": "会员游戏首付礼包活动插件；A webpack project which is compatible with IE and CEF.",
-  "main": "index.js",
+  "description": "a project for ^ie7 and other modern browsers. 一个兼容 `ie7` 以上和谷歌 `cef` 内核，及其他现代浏览器的 `webpack` 项目。",
+  "main": "index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js --open",
-    "start-prod": "webpack-dev-server --config webpack/webpack.prod.js --open",
     "build": "webpack --config webpack/webpack.prod.js",
-    "build-dev": "webpack --config webpack/webpack.dev.js",
     "dist": "npm run build & http-server ./dist -o",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +16,9 @@
   "keywords": [
     "webpack",
     "ie",
-    "cef"
+    "cef",
+    "modern",
+    "browsers"
   ],
   "author": "Garynan",
   "license": "ISC",

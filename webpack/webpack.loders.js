@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css 最小�
 
 
 /* 常量 start */
-const DNS_HOST = '//img.game.dwstatic.com'; // 图片 dns host
 const JS_LOADERS = [ // js 的 loaders
     {
         loader: "babel-loader",
@@ -16,7 +15,7 @@ const JS_LOADERS = [ // js 的 loaders
 /* 公共变量 end */
 
 module.exports = function (MetaData) {
-    const {mode, isProd, outputPath, publicPath, isCDN} = MetaData;
+    const {mode, isProd, outputPath, publicPath, isCDN, dns} = MetaData;
     
     return [
         { test: /\.handlebars$/, loader: "handlebars-loader" },
@@ -109,7 +108,7 @@ module.exports = function (MetaData) {
                     loader: 'file-loader',
                     options: {
                         outputPath: 'images/',
-                        publicPath: isCDN ? DNS_HOST + publicPath  + 'images/' : publicPath  + 'images/',
+                        publicPath: isCDN ? dns + publicPath  + 'images/' : publicPath  + 'images/',
                         name: '[name]-[hash:8].[ext]',
                     }
                 }

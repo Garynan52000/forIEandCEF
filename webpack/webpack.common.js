@@ -13,6 +13,7 @@ const CopyPlugin = require('copy-webpack-plugin'); // 文件复制插件
 const TEMPLATES = { // html 模板
   index: { // 首页
     name: 'index',
+    title: '首页',
 		template: 'public/index.html',
 		filename: 'index.html',
 	} 
@@ -59,10 +60,11 @@ module.exports = function(MetaData){
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: '会员礼包',
+        title: TEMPLATES.index.title,
         template: TEMPLATES.index.template,
         filename: isProd? `../${TEMPLATES.index.filename}` : TEMPLATES.index.filename,
         hash: isProd,
+        chunks: [TEMPLATES.index.name],
         model: indexHtmlModel
       }),
       new ForkTsCheckerWebpackPlugin({

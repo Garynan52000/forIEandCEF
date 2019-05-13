@@ -1,29 +1,8 @@
-# forIEandCEF
+# forIEandCEF 
+是一个兼容 `ie7` 以上和谷歌 `cef` 内核，及其他现代浏览器的 `webpack` 项目。
 
-一个由 `webpack` 构建的，兼容 IE 和 CEF 内核浏览器的项目模板。
+## js 模板引擎
 
-```
-# 以前的 tsconf.json
-
-{
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "es6",
-        "target": "es5",
-        "allowJs": true
-    },
-    "include": [
-        "./src/*", "./typings/*"
-      ],
-    "exclude": [
-        "node_modules"
-    ]
-}
-```
-
-handlebars-doc: http://handlebarsjs.com/
-handlebars-doc: http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/
-
-apis-doc: https://doc.yy.com/pages/viewpage.action?pageId=3846605  # 文档中的 “非会员用户体验礼包” 目录
+选用 `hadlebars` 。
+- **weboack 配置：** https://github.com/pcardune/handlebars-loader
+- **文档：** https://handlebarsjs.com/

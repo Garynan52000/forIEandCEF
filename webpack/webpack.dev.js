@@ -10,13 +10,15 @@ const common = require('./webpack.common.js');
 
 /* 配置数据源 start */
 const MetaData = {
-	devPort: 3000,
+	devPort: 80,
+	host: 'dev.yy.com',
 	mode: 'development',
 	isProd: false,
 	outputPath: `../dist/`,
 	publicPath: `/`,
 	isTsLint: true,
 	isCDN: false,
+	dns: '',
 	isSimming: false
 }
 /* 配置数据源 end */
@@ -26,7 +28,8 @@ module.exports = merge(common(MetaData), {
 	devServer: {
 		port: MetaData.devPort,
 		contentBase: MetaData.outputPath,
-		publicPath: MetaData.publicPath
+		publicPath: MetaData.publicPath,
+		host: MetaData.host
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),

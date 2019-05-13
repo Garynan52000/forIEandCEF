@@ -25,6 +25,7 @@ const MetaData = {
 	publicPath: `/${APP_NAME}/${VERSION}/`,
 	isTsLint: true,
 	isCDN: false,
+	dns: '',
 	isSimming: false
 }
 /* 配置数据源 end */
